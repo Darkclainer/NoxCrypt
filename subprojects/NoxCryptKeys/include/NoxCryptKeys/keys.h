@@ -19,6 +19,7 @@ namespace NoxCrypt
 	enum class KeyType : int 
 	{
 		ThingBin = 7,
+		End = 31,
 	};
 
 	class Key
