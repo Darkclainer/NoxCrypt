@@ -10,7 +10,7 @@ NoxCryptKeys_dep = dependency('NoxCryptKeys',
 
 internal_include = include_directories('src')
 
-raw_src = ['main.cpp']
+raw_src = ['main.cpp', 'unpackerOptions.cpp']
 src = []
 foreach file : raw_src
 	src += ['src/' + file]

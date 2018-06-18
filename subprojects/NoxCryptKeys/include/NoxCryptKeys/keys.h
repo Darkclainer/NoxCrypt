@@ -19,6 +19,7 @@ namespace NoxCrypt
 	enum class KeyType : int 
 	{
 		ThingBin = 7,
+		End = 31,
 	};
 
 	class Key
@@ -47,15 +48,19 @@ namespace NoxCrypt
 		{
 			while (srcBegin != srcEnd)
 			{
-				uint32_t lowWord = *srcBegin++;
+				uint32_t lowWord = *srcBegin;
+				++srcBegin;
 				if (srcBegin == srcEnd)
 					throw NoxCrypt::InconsistentBufferSize();
-				uint32_t highWord = *srcBegin++;
+				uint32_t highWord = *srcBegin;
+				++srcBegin;
 
 				(this->*cryptFn)(lowWord, highWord);
 
-				*dstBegin++ = lowWord;
-				*dstBegin++ = highWord;
+				*dstBegin = lowWord;
+				++dstBegin;
+				*dstBegin = highWord;
+				++dstBegin;
 			}
 
 		}

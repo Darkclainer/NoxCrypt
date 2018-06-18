@@ -2,6 +2,8 @@
 #define NOXCRYPT_NOXKEYS_DATA_H
 
 #include <cstdint>
+#include <cstddef>
+
 namespace NoxCrypt
 {
 

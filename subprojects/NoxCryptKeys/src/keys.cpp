@@ -13,7 +13,7 @@ static const uint8_t* getGeneratorKey(int keyIndex)
 	constexpr int noxKeySparseCoefficient = 28;
 	constexpr int maxKeyIndex = (keyGeneratorTableSize - generatorKeySize) / noxKeySparseCoefficient;
 
-	if (keyIndex < 0 || keyIndex > noxKeySparseCoefficient)
+	if (keyIndex < 0 || keyIndex > maxKeyIndex)
 		throw KeyIndexException();
 
 	return &keyGeneratorTable[noxKeySparseCoefficient * keyIndex];
@@ -68,8 +68,6 @@ static void transformToFinalKey(vector32& keyTransformed, uint32_t initLowWord, 
 }
 static void transformAuxKeyToEnDeKey(vector32& auxKey)
 {
-	uint32_t lowWord = 0;
-	uint32_t highWord = 0;
 	transformToFinalKey(auxKey, 0, 0, &auxKey[0], keyBigSrc);
 }
 static vector32 generateEnDekey(int keyIndex)
@@ -82,8 +80,6 @@ static vector32 generateEnDekey(int keyIndex)
 static vector32 generateBigKey(const vector32& enDeKey)
 {
 	vector32 bigKey(keyBigSrc, keyBigSrc + keyBigSrcSize32);
-	uint32_t lowWord = enDeKey[16];
-	uint32_t highWord = enDeKey[17];
 	transformToFinalKey(bigKey, enDeKey[16], enDeKey[17], &enDeKey[0], &bigKey[0]);
 	return bigKey;
 }
