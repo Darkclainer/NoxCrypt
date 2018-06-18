@@ -1,7 +1,7 @@
 project('NoxCryptUnpacker', 'cpp', 
 	license: 'GPL3', 
 	version: '0.1.0',
-	default_options : ['cpp_std=c++11']
+	default_options : ['cpp_std=c++17']
 )
 
 NoxCryptKeys_dep = dependency('NoxCryptKeys', 
