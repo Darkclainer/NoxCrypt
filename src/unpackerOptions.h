@@ -12,8 +12,6 @@ struct UnpackerOptions
 	UnpackerOptions(int argc, char** argv);
 	UnpackerOptions(const std::vector<std::string>& arguments);
 
-
-private:
 	enum class EncryptionMode : int
 	{
 		Encryption,
@@ -21,20 +19,26 @@ private:
 		NotSpecified
 	};
 
+	bool isEncryption() const { return encryptionMode == EncryptionMode::Encryption; }
 	bool printHelp{ false };
-	EncryptionMode encryptionMode {EncryptionMode::NotSpecified};
+	bool force { false };
+	bool verbose { false };
 	int keyIndex{ -1 }; //invalid key
 	std::experimental::filesystem::path inputFilePath{};
 	std::experimental::filesystem::path outputFilePath{};
 
 private:
+	EncryptionMode encryptionMode{ EncryptionMode::NotSpecified };
+
 	int parseOption(ArgumentIterator currentArgument, ArgumentIterator endArgument);
 	int parsePlainArgument(ArgumentIterator currentArgument, ArgumentIterator endArgument);
 	int parseKeyOption(std::string& keyStr);
 
 	void checkOptions();
 
-	void figureOutEncryptionMode();
+	EncryptionMode figureOutEncryptionMode();
+	int figureOutKeyIndex();
+	std::experimental::filesystem::path findOutOutputFilePath();
 };
 
 #endif//NOXCRYPT_UNPACKER_OPTIONS
